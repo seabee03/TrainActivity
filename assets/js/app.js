@@ -1,5 +1,5 @@
 // Your web app's Firebase configuration
-var firebaseConfig = {
+var config = {
     apiKey: "AIzaSyA6v_MlguatzU9-TIQgDiQvT5gCQfA3QHI",
     authDomain: "train-schedule-8e6d0.firebaseapp.com",
     databaseURL: "https://train-schedule-8e6d0.firebaseio.com",
@@ -16,27 +16,36 @@ var database = firebase.database();
 
 // Button for adding trains
 $("#add-train-btn").on("click", function(event) {
-            event.preventDefault();
+    event.preventDefault();
 
-            // Grabs user values
-            var trainName = $("#train-name-input").val().trim();
-            var destinationName = $("#destination-input").val().trim();
-            var firstTrainTime = moment($("#first-train-input").val().trim(), "HH:mm").format("X");
-            var trainFrequency = $("#frequency-input").val().trim();
+    // Grabs user values
+    var trainName = $("#train-name-input").val().trim();
+    var destinationName = $("#destination-input").val().trim();
+    var firstTrainTime = moment($("#first-train-input").val().trim(), "HH:mm").format("X");
+    var trainFrequency = $("#frequency-input").val().trim();
 
-            // temporary object for holding train information
-            var newTrain = {
-                name: trainName,
-                destination: destinationName,
-                first: firstTrainTime,
-                frequency: trainFrequency
-            };
+    // temporary object for holding train information
+    var newTrain = {
+        name: trainName,
+        destination: destinationName,
+        first: firstTrainTime,
+        frequency: trainFrequency
+    };
 
-            // pushes train information to firebase
-            database.ref().push(newTrain);
+    // pushes train information to firebase
+    database.ref().push(newTrain);
 
-            // logs details to console
-            console.log(newTrain.name);
-            console.log(newTrain.destination);
-            console.log(newTrain.first);
-            console.log(newTrain.frequency);
+    // logs details to console
+    console.log(newTrain.name);
+    console.log(newTrain.destination);
+    console.log(newTrain.first);
+    console.log(newTrain.frequency);
+
+    alert("Train details successfully added");
+
+    // Clears all of the text-boxes
+    $("#train-name-input").val("");
+    $("#destination-input").val("");
+    $("#first-train-input").val("");
+    $("#frequency-input").val("");
+});
