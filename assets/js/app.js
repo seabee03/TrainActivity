@@ -31,3 +31,6 @@
                   first: firstTrainTime,
                   frequency: trainFrequency
               };
+
+              // pushes train information to firebase
+              database.ref().push(newTrain);
