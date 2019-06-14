@@ -1,9 +1,33 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#train-table th,
+td {
+    display: inline-block;
+    width: 16.575%;
+}
+
 h1 {
     font-size: 60px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 h3 {
     font-size: 25px;
-    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-header {
+    background-color: #2069AD;
+    color: white;
+}
+
+#train-name-input,
+#destination-input,
+#first-train-input,
+#frequency-input {
+    margin-top: 5px;
+}
+
+#add-train-btn {
+    background-color: #2069AD;
 }
