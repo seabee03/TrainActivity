@@ -53,4 +53,61 @@ $("#add-train-btn").on("click", function(event) {
 
 // This creates a firebase event for adding trains to the database and a row in the html
 database.ref().on("child_added", function(childSnapshot) {
-            console.log(childSnapshot.val());
+    console.log(childSnapshot.val());
+
+    // Store everything into a variable.
+    var trainName = childSnapshot.val().name;
+    var destinationName = childSnapshot.val().destination;
+    var firstTrainTime = childSnapshot.val().first;
+    var trainFrequency = childSnapshot.val().frequency;
+
+    // Train Details
+    console.log(trainName);
+    console.log(destinationName);
+    console.log(firstTrainTime);
+    console.log(trainFrequency);
+
+    var tfrequency = 25;
+
+    var firstTime = "03:30";
+
+    //First time minus a year 
+    var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+    console.log(firstTimeConverted);
+
+    //Current time
+    var currentTime = moment();
+    console.log("Current Time: ") + moment(currentTime).format("HH:mm")
+
+    //Difference between times
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    console.log("Difference in time: " + diffTime);
+
+    //time remaining
+    var tRemainder = diffTime % tFrequency;
+    console.log(tRemainder);
+
+    //Minutes until the next train 
+
+    var tMinutesTilTrain = tfrequency - tRemainder
+    console.log("Minutes until the next train: " + tMinutesTilTrain);
+
+    // The next train
+    var nextTrain = moment().add(tMinutesTilTrain, "minutes");
+    console.log("Next train arrival time: " + moment(nextTrain).format("HH:mm"))
+
+    // Prettify the train's first start
+    var trainStartPretty = moment.unix(firstTrainTime).format("HH:mm");
+
+    // Creates new row
+    var newRow = $("<tr>").append(
+        $("<td>").text(trainName),
+        $("<td>").text(destinationName),
+        $("<td>").text(trainFrequency,
+            $("<td>").text(nextTrain),
+            $("<td>").text(tMinutesTilTrain),
+        ));
+
+    // Appending the new row to the table
+    $("#train-table > tbody").append(newRow);
+});
